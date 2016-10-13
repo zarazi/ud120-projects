@@ -27,8 +27,8 @@ features_train, features_test, labels_train, labels_test = preprocess()
 from sklearn import svm
 clf = svm.SVC(kernel='rbf', C=10000.)
 
-features_train = features_train[:len(features_train)/100]
-labels_train = labels_train[:len(labels_train)/100]
+# features_train = features_train[:len(features_train)/100]
+# labels_train = labels_train[:len(labels_train)/100]
 
 t0 = time()
 clf.fit(features_train, labels_train)
@@ -38,10 +38,9 @@ t1 = time()
 predictions = clf.predict(features_test)
 print "predicting time:", round(time()-t1, 3), "s"
 
-print "prediction @10:", predictions[10]
-print "prediction @26:", predictions[26]
-print "prediction @50:", predictions[50]
-
+import numpy as np
+chris_count = np.sum([n for n in predictions if n == 1])
+print chris_count
 
 # accuracy = clf.score(features_test, labels_test)
 # print accuracy
